@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="mastermind.css">
+    <script src="mastermind.js"></script>
+    <title>Online Mastermind</title>
+  </head>
+  <body>
+    <div id="main">
+      <div id="board"></div>
+      <div id="sidebar">
+        <div id="palette">
+          <div class="piece clickable one"></div>
+          <div class="piece clickable two"></div>
+          <div class="piece clickable three"></div>
+          <div class="piece clickable four"></div>
+          <div class="piece clickable five"></div>
+          <div class="piece clickable six"></div>
+        </div>
+        <div class="reset side button clickable">Reset Row</div>
+        <div class="submit side button clickable">Submit Row</div>
+        </div>
+      </div>
+      <div id="instructions">
+        <h3>Welcome to Mastermind!</h3>
+        <p>
+          The goal is to guess the 4-color code the computer has generated as quickly as possible. Your score is the number of guesses
+          before you get the correct answer, so as in golf, a lower score is better.
+        </p><p>
+          To guess, click on the colors to add them to the current row. The currently selected spot is indicated with a <code>^</code>.
+        </p><p>
+          When a guess is submitted, the computer will score it with black and white pegs. A black peg means one of the colors is in 
+          correct and in the same place as it is in the code. A white peg means a correct color has been guessed, but is not in the 
+          correct place. The order of the black and white pegs does not correspond to the order of the colors guessed.
+        </p><p>
+          For a new game, reload the page. Happy guessing!
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
