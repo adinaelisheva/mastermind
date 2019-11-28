@@ -13,6 +13,9 @@ const setup = () => {
       handlePieceClick(pb);
     });
   });
+  document.querySelector('.giveup').addEventListener('click',() => {
+    giveUp();
+  });
   document.querySelector('.reset').addEventListener('click',() => {
     if (!playing) { return; }
     resetCurrentRow();
@@ -33,8 +36,13 @@ const setup = () => {
 
 const handlePieceClick = (button) => {
   const color = button.classList[button.classList.length - 1];
+  addPieceByColor(color);
+}
+
+const addPieceByColor = (color) => {
   const pieces = currRow.querySelectorAll('.piece');
   pieces[currInd].className = `piece ${color}`;
+  pieces[currInd].setAttribute('color', color);
   currInd = (currInd + 1) % 4;
   pieces[currInd].classList.add('current');
 };
@@ -71,7 +79,7 @@ const submitCurrentRow = () => {
   });
   const guess = [];
   pieces.forEach((p) => {
-    guess.push(p.classList[p.classList.length - 1]);
+    guess.push(p.getAttribute('color'));
   })
   scoreGuess(guess);
 }
@@ -105,9 +113,27 @@ const addNewRow = () => {
   board.scrollTop = board.scrollHeight;
 };
 
+const giveUp = () => {
+  addNewRow();
+  for(let i = 0; i < 4; i++) {
+    addPieceByColor(code[i]);
+  }
+  alert(`You gave up! The correct answer is now shown.`);
+  endGame();
+}
+
+const win = () => {
+  document.title = "Online Mastermind - You Win!"
+  alert(`Correct! You Win!\nScore: ${document.querySelector('#board').childElementCount}`);
+  const star = document.createElement('div');
+  star.id = 'star';
+  star.innerHTML = '&#x263a;';
+  currScore.appendChild(star);
+  endGame();
+}
+
 const endGame = () => {
   playing = false;
-  document.title = "Online Mastermind - You Win!"
   document.querySelectorAll('.clickable').forEach((b) => {
     b.classList.remove('clickable');
   });
@@ -115,12 +141,7 @@ const endGame = () => {
 
 const scoreGuess = (guess) => {
   if (guess.join('') === code.join('')) {
-    alert(`Correct! You Win!\nScore: ${document.querySelector('#board').childElementCount}`);
-    const star = document.createElement('div');
-    star.id = 'star';
-    star.innerHTML = '&#x263a;';
-    currScore.appendChild(star);
-    endGame();
+    win();
     return;
   }
   //score
