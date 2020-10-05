@@ -99,6 +99,16 @@
   border: 1px solid black;
 }
 
+.side.button.disabled,
+.unclickable {
+  cursor: default;
+  pointer-events: none;
+}
+.side.button.disabled {
+  color: #ddd;
+  border-color: #ddd;
+}
+
 #star, #star:before, #star:after {
   background: rgba(255,196,00,0.3);
   font-size: 34px;
